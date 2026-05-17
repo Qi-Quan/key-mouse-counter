@@ -1,9 +1,0 @@
-{
-  "retention_days": 365,
-  "screen_width_mm": 590,
-  "screen_height_mm": 335,
-  "heatmap_color": "#ff8080",
-  "stats_window_width": 2019,
-  "stats_window_height": 744,
-  "stats_refresh_interval": 1
-}
