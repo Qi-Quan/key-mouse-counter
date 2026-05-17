@@ -177,6 +177,11 @@ def main():
     settings_win = None
     stats_win = None
 
+    def save_latest_data():
+        counter.check_date_change()
+        data = counter.get_save_data()
+        data_manager.save_all(data['today'], data['total'])
+
     def process_queue():
         nonlocal settings_win, stats_win
         try:
@@ -190,11 +195,9 @@ def main():
                             icon_path
                         )
                 elif cmd == 'stats':
-                    # 保存一次最新数据
+                    # 打开窗口前先保存一次（保持原有逻辑）
                     try:
-                        counter.check_date_change()
-                        data = counter.get_save_data()
-                        data_manager.save_all(data['today'], data['total'])
+                        save_latest_data()
                     except Exception as e:
                         print(f"统计前保存出错: {e}")
                     try:
@@ -204,7 +207,8 @@ def main():
                                 data_manager.load_settings(),
                                 data_manager.get_available_dates,
                                 on_stats_close,
-                                icon_path
+                                icon_path,
+                                save_callback=save_latest_data      # 传入刷新回调
                             )
                     except Exception as e:
                         print(f"打开统计界面出错: {e}")

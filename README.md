@@ -39,3 +39,9 @@ Key Mouse Counter/
 
 ```bash
 pip install -r requirements.txt
+```
+
+## 打包
+```bash
+pyinstaller --onefile --windowed --icon=icon.ico --add-data "icon.ico;." --name "Key Mouse Counter" main.py
+```

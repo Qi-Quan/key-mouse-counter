@@ -3,3 +3,5 @@
 data/
 build/
 dist/
+.vscode/
+Key Mouse Counter.spec
