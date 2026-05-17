@@ -15,8 +15,8 @@ class DataManager:
             'screen_width_mm': 532,
             'screen_height_mm': 299,
             'heatmap_color': '#8B0000',
-            'stats_window_width': 1000,
-            'stats_window_height': 700,
+            'stats_window_width': 1958,
+            'stats_window_height': 735,
         }
 
     def _get_daily_path(self, date_str):

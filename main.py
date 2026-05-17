@@ -14,9 +14,22 @@ from tray_app import TrayApp
 from settings_window import SettingsWindow
 from stats_window import StatsWindow
 
-BASE_DIR = Path(__file__).parent.absolute()
+def get_app_dir():
+    """返回应用数据目录，打包后与 exe 同级，开发时与 main.py 同级"""
+    if getattr(sys, 'frozen', False):
+        # 打包后，使用 exe 所在目录
+        return Path(sys.executable).parent
+    else:
+        return Path(__file__).parent
+
+BASE_DIR = get_app_dir()
 DATA_DIR = BASE_DIR / 'data'
-DEFAULT_ICON = BASE_DIR / 'icon.png'
+
+def get_default_icon():
+    """返回默认图标路径，支持 PyInstaller 打包"""
+    if getattr(sys, 'frozen', False):
+        return str(Path(sys._MEIPASS) / 'icon.ico')
+    return str(BASE_DIR / 'icon.ico')
 
 # ---------- DPI 感知设置（解决 4K 模糊） ----------
 def set_dpi_aware():
@@ -101,7 +114,7 @@ def main():
     # 设置 DPI 感知，必须在创建任何窗口之前
     set_dpi_aware()
 
-    icon_path = args.icon if args.icon else str(DEFAULT_ICON)
+    icon_path = args.icon if args.icon else get_default_icon()
     if not os.path.isfile(icon_path):
         icon_path = None
 
